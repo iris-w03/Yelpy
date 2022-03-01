@@ -952,17 +952,14 @@ extension DataStreamRequest {
     /// - Returns:  The `DataStreamRequest`.
     @discardableResult
     public func responseStream(on queue: DispatchQueue = .main, stream: @escaping Handler<Data, Never>) -> Self {
-        let parser = { [unowned self] (data: Data) in
-            queue.async {
+        $streamMutableState.write { state in
+            let capture = (queue, { data in
                 self.capturingError {
                     try stream(.init(event: .stream(.success(data)), token: .init(self)))
                 }
-
-                self.updateAndCompleteIfPossible()
-            }
+            })
+            state.streams.append(capture)
         }
-
-        $streamMutableState.write { $0.streams.append(parser) }
         appendStreamCompletion(on: queue, stream: stream)
 
         return self
@@ -980,31 +977,25 @@ extension DataStreamRequest {
     public func responseStream<Serializer: DataStreamSerializer>(using serializer: Serializer,
                                                                  on queue: DispatchQueue = .main,
                                                                  stream: @escaping Handler<Serializer.SerializedObject, AFError>) -> Self {
-        let parser = { [unowned self] (data: Data) in
+        let parser = { (data: Data) in
             self.serializationQueue.async {
                 // Start work on serialization queue.
                 let result = Result { try serializer.serialize(data) }
                     .mapError { $0.asAFError(or: .responseSerializationFailed(reason: .customSerializationFailed(error: $0))) }
                 // End work on serialization queue.
-                self.underlyingQueue.async {
+                queue.async {
                     self.eventMonitor?.request(self, didParseStream: result)
-
                     if result.isFailure, self.automaticallyCancelOnStreamError {
-                        self.cancel()
+                        queue.async { self.cancel() }
                     }
-
-                    queue.async {
-                        self.capturingError {
-                            try stream(.init(event: .stream(result), token: .init(self)))
-                        }
-
-                        self.updateAndCompleteIfPossible()
+                    self.capturingError {
+                        try stream(.init(event: .stream(result), token: .init(self)))
                     }
                 }
             }
         }
 
-        $streamMutableState.write { $0.streams.append(parser) }
+        $streamMutableState.write { $0.streams.append((queue, parser)) }
         appendStreamCompletion(on: queue, stream: stream)
 
         return self
@@ -1020,41 +1011,23 @@ extension DataStreamRequest {
     @discardableResult
     public func responseStreamString(on queue: DispatchQueue = .main,
                                      stream: @escaping Handler<String, Never>) -> Self {
-        let parser = { [unowned self] (data: Data) in
+        let parser = { (data: Data) in
             self.serializationQueue.async {
                 // Start work on serialization queue.
                 let string = String(decoding: data, as: UTF8.self)
                 // End work on serialization queue.
-                self.underlyingQueue.async {
-                    self.eventMonitor?.request(self, didParseStream: .success(string))
-
-                    queue.async {
-                        self.capturingError {
-                            try stream(.init(event: .stream(.success(string)), token: .init(self)))
-                        }
-
-                        self.updateAndCompleteIfPossible()
+                queue.async {
+                    self.capturingError {
+                        try stream(.init(event: .stream(.success(string)), token: .init(self)))
                     }
                 }
             }
         }
 
-        $streamMutableState.write { $0.streams.append(parser) }
+        $streamMutableState.write { $0.streams.append((queue, parser)) }
         appendStreamCompletion(on: queue, stream: stream)
 
         return self
-    }
-
-    private func updateAndCompleteIfPossible() {
-        $streamMutableState.write { state in
-            state.numberOfExecutingStreams -= 1
-
-            guard state.numberOfExecutingStreams == 0, !state.enqueuedCompletionEvents.isEmpty else { return }
-
-            let completionEvents = state.enqueuedCompletionEvents
-            self.underlyingQueue.async { completionEvents.forEach { $0() } }
-            state.enqueuedCompletionEvents.removeAll()
-        }
     }
 
     /// Adds a `StreamHandler` which parses incoming `Data` using the provided `DataDecoder`.

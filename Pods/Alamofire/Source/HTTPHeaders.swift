@@ -93,19 +93,16 @@ public struct HTTPHeaders {
         headers.remove(at: index)
     }
 
-    /// Sort the current instance by header name, case insensitively.
+    /// Sort the current instance by header name.
     public mutating func sort() {
-        headers.sort { $0.name.lowercased() < $1.name.lowercased() }
+        headers.sort { $0.name < $1.name }
     }
 
     /// Returns an instance sorted by header name.
     ///
     /// - Returns: A copy of the current instance sorted by name.
     public func sorted() -> HTTPHeaders {
-        var headers = self
-        headers.sort()
-
-        return headers
+        HTTPHeaders(headers.sorted { $0.name < $1.name })
     }
 
     /// Case-insensitively find a header's value by name.
@@ -383,11 +380,7 @@ extension HTTPHeader {
             let versionString = "\(version.majorVersion).\(version.minorVersion).\(version.patchVersion)"
             let osName: String = {
                 #if os(iOS)
-                #if targetEnvironment(macCatalyst)
-                return "macOS(Catalyst)"
-                #else
                 return "iOS"
-                #endif
                 #elseif os(watchOS)
                 return "watchOS"
                 #elseif os(tvOS)

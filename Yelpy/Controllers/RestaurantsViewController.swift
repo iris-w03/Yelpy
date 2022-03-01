@@ -1,35 +1,44 @@
 //
-//  RestaurantsViewController.swift
+//  ViewController.swift
 //  Yelpy
 //
-//  Created by Ziyue Wang on 2/21/22.
+//  Created by Memo on 5/21/20.
+//  Copyright © 2020 memo. All rights reserved.
 //
 
 import UIKit
 import AlamofireImage
+import Lottie
 import CoreLocation
+import SkeletonView
 
-// ––––– TODO: Build Restaurant Class
-class RestaurantsViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate,CLLocationManagerDelegate,UIScrollViewDelegate {
-
+class RestaurantsViewController: UIViewController,CLLocationManagerDelegate {
+    
+    // Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
-    
-    // –––––– TODO: Update restaurants Array to an array of Restaurants
+    // Initiliazers
     var restaurantsArray: [Restaurant] = []
-    var filteredData: [Restaurant]! = []
-    var isMoreDataLoading = false
+    var filteredRestaurants: [Restaurant] = []
     
     let locationManager = CLLocationManager()
         
     var latitude = 37.773972
     var longitude = -122.431297
+    // –––––  Lab 4: create an animation view
     
+    var animationView: AnimationView?
+    var refresh = true
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
+        // ––––– Lab 4 TODO: Call animation functions to start
+        startAnimations()
         
+        animationView = .init(name: "animationName")
+        animationView?.frame = view.bounds
+        animationView?.play()
+        // ––––– Lab 4 TODO: Start animations
         locationManager.requestAlwaysAuthorization()
         
         if CLLocationManager.locationServicesEnabled() {
@@ -37,12 +46,23 @@ class RestaurantsViewController: UIViewController, UITableViewDataSource, UISear
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
-
-        //tableView.delegate = self
+        
+        let delayTime = DispatchTime.now() + 3.0
+        DispatchQueue.main.asyncAfter(deadline: delayTime, execute: {
+            self.stopAnimations()
+        })
+        // Table View
+        tableView.delegate = self
         tableView.dataSource = self
+        
+        // Search Bar delegate
         searchBar.delegate = self
+        
+        // Get Data from API
         getAPIData()
-        self.tableView.reloadData()
+        
+        // –––––  Lab 4: stop animations, you can add a timer to stop the animation
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -56,100 +76,124 @@ class RestaurantsViewController: UIViewController, UITableViewDataSource, UISear
             //self.tableView.reloadData()
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-            if (!isMoreDataLoading) {
-                let scrollViewContentHeight = tableView.contentSize.height
-                let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
-                if (scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging) {
-                    isMoreDataLoading = true
-                    loadMoreData()
-                }
-            }
-    }
     
-    
-    // ––––– TODO: Update API to get an array of restaurant objects
-    func getAPIData() {
+    @objc func getAPIData() {
         API.getRestaurants(lat: latitude, long: longitude) { (restaurants) in
             guard let restaurants = restaurants else {
                 return
             }
             self.restaurantsArray = restaurants
-            self.filteredData = self.restaurantsArray
+            self.filteredRestaurants = restaurants
             self.tableView.reloadData()
+            
         }
     }
     
-    // Protocol Stubs
-    // How many cells there will be
+}
+
+// ––––– TableView Functionality –––––
+extension RestaurantsViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredData.count
+        return filteredRestaurants.count
     }
     
-
-    // ––––– TODO: Configure cell using MVC
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Create Restaurant Cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "RestaurantCell") as! RestaurantCell
-        
-        let restaurant = filteredData[indexPath.row]
-        cell.r = restaurant
+        // Set cell's restaurant
+        cell.r = filteredRestaurants[indexPath.row]
+        if self.refresh {
+            cell.showAnimatedSkeleton()
+        }else{
+            cell.hideSkeleton()
+        }
         return cell
-        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UITableViewCell
+        if let indexPath = tableView.indexPath(for: cell) {
+            let r = filteredRestaurants[indexPath.row]
+            let detailViewController = segue.destination as! RestaurantDetailViewController
+            detailViewController.r = r
         }
         
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
-        filteredData = searchText.isEmpty ? restaurantsArray: restaurantsArray.filter{(item: Restaurant)->Bool in
-            let name = item.name
-            return name.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+    }
+    
+}
+
+extension RestaurantsViewController: UISearchBarDelegate {
+    
+    // Search bar functionality
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText != "" {
+            filteredRestaurants = restaurantsArray.filter { (r: Restaurant) -> Bool in
+                return r.name.lowercased().contains(searchText.lowercased())
+            }
+        }
+        else {
+            filteredRestaurants = restaurantsArray
         }
         tableView.reloadData()
     }
     
-    // cancel search
+    
+    // Show Cancel button when typing
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-            self.searchBar.showsCancelButton = true
+        self.searchBar.showsCancelButton = true
     }
-        
+    
+    // Logic for searchBar cancel button
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false // remove cancel button
-        searchBar.text = ""
-        searchBar.resignFirstResponder() // hide keyboarad
-        filteredData = restaurantsArray
+        searchBar.text = "" // reset search text
+        searchBar.resignFirstResponder() // remove keyboard
+        filteredRestaurants = restaurantsArray // reset results to display
         tableView.reloadData()
     }
     
-    
-    // –––––– TODO: Override segue to pass the restaurant object to the DetailsViewController
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier != "ProfileSegue"){
-                    let cell = sender as! UITableViewCell
-                    
-                    if let indexPath = tableView.indexPath(for: cell){
-                        let r = restaurantsArray[indexPath.row]
-                        let detailViewContoller = segue.destination as! RestaurantDetailViewController
-                        detailViewContoller.r = r
-                    }
-        }
+}
+//Skeleton View is a way to show the users that your page is loading and are fetching the data. We will implement one to display while the animation is playing.
+
+extension RestaurantsViewController: SkeletonTableViewDataSource{func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+    return "RestaurantCell"
+    }
+    func startAnimations(){
+        animationView = .init(name: "4762-food-carousel")
+        // ---- 1.Set the size to the frame
+        //animationView!.frame = view.bounds
+        animationView!.frame = CGRect(x: view.frame.width / 3, y:0, width:100, height:100)
+        
+        //fit the animation
+        animationView!.contentMode = .scaleAspectFit
+        view.addSubview(animationView!)
+        // ---- 2. Set animation loop mode
+        animationView!.loopMode = .loop
+        
+        // ---- 3.Animation speed -Larger number = faste
+        animationView!.animationSpeed = 5
+        
+        // ---- 4. Play animation
+        animationView!.play()
+        view.showGradientSkeleton()
+        
+    }
+    // ––––– Lab 4 TODO: Call animation functions to stop
+    @objc func stopAnimations(){
+        // ---- 1. Stop Animation
+        animationView?.stop()
+        // ---- 2. Change the subview to last and remove the current subview
+        view.subviews.last?.removeFromSuperview()
+        view.hideSkeleton()
+        refresh = false
     }
     
-    func loadMoreData(){
-        let lat = 37.773972
-        let long = -122.431297
-        let url = URL(string: "https://api.yelp.com/v3/transactions/delivery/search?latitude=\(lat)&longitude=\(long)")!
-        
-        var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
-        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
-        let task : URLSessionDataTask = session.dataTask(with: request) { (data, response, error) in
-            self.isMoreDataLoading = false
-            self.tableView.reloadData()
-        }
-        task.resume()
-    }
-        
 
 }
 
-    
-    
+
+
+
+
 

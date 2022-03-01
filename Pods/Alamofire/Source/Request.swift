@@ -1,7 +1,7 @@
 //
 //  Request.swift
 //
-//  Copyright (c) 2014-2020 Alamofire Software Foundation (http://alamofire.org/)
+//  Copyright (c) 2014-2018 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -1128,7 +1128,7 @@ public final class DataStreamRequest: Request {
 
     /// Type used to cancel an ongoing stream.
     public struct CancellationToken {
-        weak var request: DataStreamRequest?
+        let request: DataStreamRequest
 
         init(_ request: DataStreamRequest) {
             self.request = request
@@ -1136,7 +1136,7 @@ public final class DataStreamRequest: Request {
 
         /// Cancel the ongoing stream by canceling the underlying `DataStreamRequest`.
         public func cancel() {
-            request?.cancel()
+            request.cancel()
         }
     }
 
@@ -1149,13 +1149,8 @@ public final class DataStreamRequest: Request {
     struct StreamMutableState {
         /// `OutputStream` bound to the `InputStream` produced by `asInputStream`, if it has been called.
         var outputStream: OutputStream?
-        /// Stream closures called as `Data` is received.
-        var streams: [(_ data: Data) -> Void] = []
-        /// Number of currently executing streams. Used to ensure completions are only fired after all streams are
-        /// enqueued.
-        var numberOfExecutingStreams = 0
-        /// Completion calls enqueued while streams are still executing.
-        var enqueuedCompletionEvents: [() -> Void] = []
+        /// `DispatchQueue`s and stream closures associated called as `Data` is received.
+        var streams: [(queue: DispatchQueue, stream: (_ data: Data) -> Void)] = []
     }
 
     @Protected
@@ -1211,16 +1206,15 @@ public final class DataStreamRequest: Request {
     }
 
     func didReceive(data: Data) {
-        $streamMutableState.write { state in
+        $streamMutableState.read { state in
             if let stream = state.outputStream {
                 underlyingQueue.async {
                     var bytes = Array(data)
                     stream.write(&bytes, maxLength: bytes.count)
                 }
             }
-            state.numberOfExecutingStreams += state.streams.count
-            let localState = state
-            underlyingQueue.async { localState.streams.forEach { $0(data) } }
+
+            underlyingQueue.async { state.streams.forEach { stream in stream.queue.async { stream.stream(data) } } }
         }
     }
 
@@ -1288,33 +1282,18 @@ public final class DataStreamRequest: Request {
         appendResponseSerializer {
             self.underlyingQueue.async {
                 self.responseSerializerDidComplete {
-                    self.$streamMutableState.write { state in
-                        guard state.numberOfExecutingStreams == 0 else {
-                            state.enqueuedCompletionEvents.append {
-                                self.enqueueCompletion(on: queue, stream: stream)
-                            }
-
-                            return
+                    queue.async {
+                        do {
+                            let completion = Completion(request: self.request,
+                                                        response: self.response,
+                                                        metrics: self.metrics,
+                                                        error: self.error)
+                            try stream(.init(event: .complete(completion), token: .init(self)))
+                        } catch {
+                            // Ignore error, as errors on Completion can't be handled anyway.
                         }
-
-                        self.enqueueCompletion(on: queue, stream: stream)
                     }
                 }
-            }
-        }
-    }
-
-    func enqueueCompletion<Success, Failure>(on queue: DispatchQueue,
-                                             stream: @escaping Handler<Success, Failure>) {
-        queue.async {
-            do {
-                let completion = Completion(request: self.request,
-                                            response: self.response,
-                                            metrics: self.metrics,
-                                            error: self.error)
-                try stream(.init(event: .complete(completion), token: .init(self)))
-            } catch {
-                // Ignore error, as errors on Completion can't be handled anyway.
             }
         }
     }
@@ -1620,9 +1599,7 @@ public class DownloadRequest: Request {
 
             let result = validation(self.request, response, self.fileURL)
 
-            if case let .failure(error) = result {
-                self.error = error.asAFError(or: .responseValidationFailed(reason: .customValidationFailed(error: error)))
-            }
+            if case let .failure(error) = result { self.error = error.asAFError(or: .responseValidationFailed(reason: .customValidationFailed(error: error))) }
 
             self.eventMonitor?.request(self,
                                        didValidateRequest: self.request,

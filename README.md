@@ -1,2 +1,2 @@
 # Yelpy
-A Yelp clone using the Yelp API
+iOS App to be used to teach for CodePath students

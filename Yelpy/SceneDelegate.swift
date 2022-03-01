@@ -2,7 +2,8 @@
 //  SceneDelegate.swift
 //  Yelpy
 //
-//  Created by Ziyue Wang on 2/21/22.
+//  Created by Memo on 5/21/20.
+//  Copyright © 2020 memo. All rights reserved.
 //
 
 import UIKit
