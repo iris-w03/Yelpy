@@ -10,14 +10,14 @@ import Foundation
 
 struct API {
     
-    static func getRestaurants(completion: @escaping ([Restaurant]?) -> Void) {
+    static func getRestaurants(lat: Double, long: Double, completion: @escaping ([Restaurant]?) -> Void) {
         
         // ––––– TODO: Add your own API key!
         let apikey = "KYOvT5yKKXlTk_gLITy7R4Caw1Dr4Lu2SOdy3INtjTR8nkKVnhQJqMaUNG8nYPtUNTT1bDM5ul1C73e2WfidkGsib-3YVmNVjw_dlu8RkAQpsmccvLACqENBbX4aYnYx"
         
         // Coordinates for San Francisco
-        let lat = 37.773972
-        let long = -122.431297
+        //let lat = 37.773972
+        //let long = -122.431297
         
         
         let url = URL(string: "https://api.yelp.com/v3/transactions/delivery/search?latitude=\(lat)&longitude=\(long)")!
