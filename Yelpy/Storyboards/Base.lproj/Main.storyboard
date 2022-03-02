@@ -264,9 +264,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AHs-ue-E21">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AHs-ue-E21">
                                 <rect key="frame" x="87" y="53" width="240" height="240"/>
-                                <color key="backgroundColor" red="0.34901960780000002" green="0.80392156859999997" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" systemColor="tertiaryLabelColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="8lA-Bs-8L5"/>
                                     <constraint firstAttribute="height" constant="240" id="osc-wN-sKe"/>
@@ -276,7 +276,7 @@
                                 <rect key="frame" x="8" y="336" width="398" height="39"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <state key="normal" title="Finish Posting Image">
-                                    <color key="titleColor" red="0.34901960780000002" green="0.80392156859999997" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" systemColor="systemGray2Color"/>
                                 </state>
                                 <connections>
                                     <action selector="onFinishPosting:" destination="3Z8-Oa-TAz" eventType="touchUpInside" id="2xp-ig-ibi"/>
@@ -304,7 +304,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eYi-QB-xka" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="Pf0-ug-Mvh" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5318.840579710145" y="123.88392857142857"/>
+            <point key="canvasLocation" x="5317.3913043478269" y="123.88392857142857"/>
         </scene>
         <!--Yelpy Chat-->
         <scene sceneID="VrI-id-Hah">
@@ -573,8 +573,14 @@
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="viewFlipsideBackgroundColor">
             <color red="0.1215686274509804" green="0.12941176470588239" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
