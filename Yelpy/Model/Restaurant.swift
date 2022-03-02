@@ -9,9 +9,12 @@
 import Foundation
 import UIKit
 
+// Lab 6: TODO: add MapKit framework --> import MapKit
+import MapKit
+
 class Restaurant {
     
-    // ––––– Lab 2 TODO: Establish Properties –––––
+
     var imageURL: URL?
     var url: URL?
     var name: String
@@ -19,9 +22,12 @@ class Restaurant {
     var phone: String
     var rating: Double
     var reviews: Int
+    
+    
+    // MARK: Lab 6:  Refactor Restaurant Model
+    var coordinates: [String:Double]
+    
 
-
-    // ––––– Lab 2 TODO: Complete initializer for Restaurant
     init(dict: [String: Any]) {
         imageURL = URL(string: dict["image_url"] as! String)
         name = dict["name"] as! String
@@ -30,6 +36,9 @@ class Restaurant {
         phone = dict["display_phone"] as! String
         url = URL(string: dict["url"] as! String)
         mainCategory = Restaurant.getMainCategory(dict: dict)
+        
+        // LAB 6
+        coordinates = dict["coordinates"] as! [String:Double]
         
     }
     

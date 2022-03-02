@@ -12,14 +12,14 @@ import Foundation
 struct API {
     
 
-    static func getRestaurants(lat: Double, long: Double, completion: @escaping ([Restaurant]?) -> Void) {
+    static func getRestaurants(completion: @escaping ([Restaurant]?) -> Void) {
         
         // ––––– TODO: Add your own API key!
         let apikey = "gjSp5LrrEi9tJFLQALnw-RdZSRy-TLiJsfPM09LzFMNpMnmSHQZ2n2R_f3ptONYEalxMIudE9avxn_bQvvDZJc1zpPdfPDOvdh08RlT8vZGbqFx3dbtkuliMwATHXnYx"
         
         // Coordinates for San Francisco
-        //let lat = 37.773972
-        //let long = -122.431297
+        let lat = 37.773972
+        let long = -122.431297
         
         
         let url = URL(string: "https://api.yelp.com/v3/transactions/delivery/search?latitude=\(lat)&longitude=\(long)")!
@@ -37,15 +37,15 @@ struct API {
                 
                 // ––––– TODO: Get data from API and return it using completion
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+                                
+                let restDictionaries = dataDictionary["businesses"] as! [[String: Any]]
                 
-                let restDict = dataDictionary["businesses"] as! [[String: Any]]
-                
-                let restaurants = restDict.map({ Restaurant.init(dict: $0) })
+                let restaurants = restDictionaries.map({ Restaurant.init(dict: $0) })
                 
                 // Using For Loop
 //                var restaurants: [Restaurant] = []
-//                for dictionary in dataDictionary {
-//                    let restaurant = Restaurant.init(dict: dictionary as! [String : Any])
+//                for dictionary in restDictionaries {
+//                    let restaurant = Restaurant.init(dict: dictionary)
 //                    restaurants.append(restaurant)
 //                }
 

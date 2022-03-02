@@ -8,9 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		70B21A6D2487796D00E1BAB5 /* 4762-food-carousel.json in Resources */ = {isa = PBXBuildFile; fileRef = 70B21A6C2487796D00E1BAB5 /* 4762-food-carousel.json */; };
+		70DD4FFD27CEDAC700123040 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE517AC424B6DD4A00268657 /* MapKit.framework */; };
 		70F6369B24898E8000038EC3 /* FileSubviewsSkeletonables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F6369A24898E8000038EC3 /* FileSubviewsSkeletonables.swift */; };
 		BB30BD2B247E46FE00C383BB /* RestaurantDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB30BD2A247E46FE00C383BB /* RestaurantDetailViewController.swift */; };
 		BB30BD30247E48E800C383BB /* YelpStars.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB30BD2F247E48E800C383BB /* YelpStars.swift */; };
+		BB364E7A24AD5F64003EA679 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB364E7924AD5F64003EA679 /* LoginViewController.swift */; };
+		BB364E7C24AD6883003EA679 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB364E7B24AD6883003EA679 /* ChatViewController.swift */; };
+		BB364E7E24AD68C2003EA679 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB364E7D24AD68C2003EA679 /* ChatCell.swift */; };
 		BB47B3AA247739640029FFF6 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB47B3A9247739640029FFF6 /* API.swift */; };
 		BB47B3AF2477426A0029FFF6 /* exampleAPI.json in Resources */ = {isa = PBXBuildFile; fileRef = BB47B3AE2477426A0029FFF6 /* exampleAPI.json */; };
 		BB47B3B2247742F70029FFF6 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB47B3B1247742F70029FFF6 /* Restaurant.swift */; };
@@ -21,6 +25,7 @@
 		BBEBF110247738A50044AFE0 /* RestaurantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEBF10F247738A50044AFE0 /* RestaurantsViewController.swift */; };
 		BBEBF115247738A50044AFE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBEBF114247738A50044AFE0 /* Assets.xcassets */; };
 		BBEBF118247738A50044AFE0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBEBF116247738A50044AFE0 /* LaunchScreen.storyboard */; };
+		CE517AC724B6F65200268657 /* PostImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE517AC624B6F65200268657 /* PostImageViewController.swift */; };
 		DEB0D3CBF2C6E48DC3500274 /* Pods_Yelpy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F45387EF0BCD4FD0EAD369F /* Pods_Yelpy.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +37,9 @@
 		70F6369A24898E8000038EC3 /* FileSubviewsSkeletonables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSubviewsSkeletonables.swift; sourceTree = "<group>"; };
 		BB30BD2A247E46FE00C383BB /* RestaurantDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailViewController.swift; sourceTree = "<group>"; };
 		BB30BD2F247E48E800C383BB /* YelpStars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpStars.swift; sourceTree = "<group>"; };
+		BB364E7924AD5F64003EA679 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		BB364E7B24AD6883003EA679 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		BB364E7D24AD68C2003EA679 /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		BB47B3A9247739640029FFF6 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		BB47B3AE2477426A0029FFF6 /* exampleAPI.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = exampleAPI.json; sourceTree = "<group>"; };
 		BB47B3B1247742F70029FFF6 /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
@@ -44,6 +52,8 @@
 		BBEBF114247738A50044AFE0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BBEBF117247738A50044AFE0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BBEBF119247738A50044AFE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE517AC424B6DD4A00268657 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		CE517AC624B6F65200268657 /* PostImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70DD4FFD27CEDAC700123040 /* MapKit.framework in Frameworks */,
 				DEB0D3CBF2C6E48DC3500274 /* Pods_Yelpy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -70,6 +81,7 @@
 		7D8BA013843B8AF0BF0FE308 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE517AC424B6DD4A00268657 /* MapKit.framework */,
 				4F45387EF0BCD4FD0EAD369F /* Pods_Yelpy.framework */,
 			);
 			name = Frameworks;
@@ -78,11 +90,29 @@
 		BB30BD2C247E48C400C383BB /* Extra */ = {
 			isa = PBXGroup;
 			children = (
-				70B21A6C2487796D00E1BAB5 /* 4762-food-carousel.json */,
 				BB30BD2F247E48E800C383BB /* YelpStars.swift */,
 				70F6369A24898E8000038EC3 /* FileSubviewsSkeletonables.swift */,
 			);
 			path = Extra;
+			sourceTree = "<group>";
+		};
+		BB364E8524AD999A003EA679 /* MainFeed */ = {
+			isa = PBXGroup;
+			children = (
+				BBEBF10F247738A50044AFE0 /* RestaurantsViewController.swift */,
+				BB30BD2A247E46FE00C383BB /* RestaurantDetailViewController.swift */,
+				CE517AC624B6F65200268657 /* PostImageViewController.swift */,
+			);
+			path = MainFeed;
+			sourceTree = "<group>";
+		};
+		BB364E8624AD99A9003EA679 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				BB364E7924AD5F64003EA679 /* LoginViewController.swift */,
+				BB364E7B24AD6883003EA679 /* ChatViewController.swift */,
+			);
+			path = Chat;
 			sourceTree = "<group>";
 		};
 		BB47B3AB247739720029FFF6 /* Network */ = {
@@ -96,8 +126,8 @@
 		BB47B3AC247739890029FFF6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				BBEBF10F247738A50044AFE0 /* RestaurantsViewController.swift */,
-				BB30BD2A247E46FE00C383BB /* RestaurantDetailViewController.swift */,
+				BB364E8624AD99A9003EA679 /* Chat */,
+				BB364E8524AD999A003EA679 /* MainFeed */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -123,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				BB47B3B4247753B80029FFF6 /* RestaurantCell.swift */,
+				BB364E7D24AD68C2003EA679 /* ChatCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -152,11 +183,12 @@
 				BBEBF10B247738A50044AFE0 /* AppDelegate.swift */,
 				BBEBF10D247738A50044AFE0 /* SceneDelegate.swift */,
 				BB47B3AE2477426A0029FFF6 /* exampleAPI.json */,
+				70B21A6C2487796D00E1BAB5 /* 4762-food-carousel.json */,
 				BB47B3B32477539A0029FFF6 /* Cells */,
 				BB47B3B0247742D70029FFF6 /* Model */,
 				BB47B3AC247739890029FFF6 /* Controllers */,
-				BB47B3AB247739720029FFF6 /* Network */,
 				BB47B3AD247739F00029FFF6 /* Storyboards */,
+				BB47B3AB247739720029FFF6 /* Network */,
 				BB30BD2C247E48C400C383BB /* Extra */,
 				BBEBF119247738A50044AFE0 /* Info.plist */,
 			);
@@ -192,7 +224,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = memo;
 				TargetAttributes = {
 					BBEBF107247738A50044AFE0 = {
@@ -282,12 +314,16 @@
 			files = (
 				BB47B3B5247753B80029FFF6 /* RestaurantCell.swift in Sources */,
 				BB30BD30247E48E800C383BB /* YelpStars.swift in Sources */,
+				BB364E7C24AD6883003EA679 /* ChatViewController.swift in Sources */,
 				BB47B3B2247742F70029FFF6 /* Restaurant.swift in Sources */,
 				70F6369B24898E8000038EC3 /* FileSubviewsSkeletonables.swift in Sources */,
+				BB364E7E24AD68C2003EA679 /* ChatCell.swift in Sources */,
 				BBEBF110247738A50044AFE0 /* RestaurantsViewController.swift in Sources */,
 				BB47B3AA247739640029FFF6 /* API.swift in Sources */,
 				BBEBF10C247738A50044AFE0 /* AppDelegate.swift in Sources */,
 				BBEBF10E247738A50044AFE0 /* SceneDelegate.swift in Sources */,
+				BB364E7A24AD5F64003EA679 /* LoginViewController.swift in Sources */,
+				CE517AC724B6F65200268657 /* PostImageViewController.swift in Sources */,
 				BB30BD2B247E46FE00C383BB /* RestaurantDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -340,6 +376,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -364,7 +401,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -400,6 +437,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -418,7 +456,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -434,12 +472,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CK85NUKD77;
 				INFOPLIST_FILE = Yelpy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = memo.com.Yelpy;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.codepath.Yelpy-iriszy";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -452,12 +492,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CK85NUKD77;
 				INFOPLIST_FILE = Yelpy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = memo.com.Yelpy;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.codepath.Yelpy-iriszy";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
