@@ -109,6 +109,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                             </subviews>
+                                            <color key="backgroundColor" red="0.96591493269999995" green="0.87610870439999999" blue="0.87883346419999997" alpha="0.26591144150000001" colorSpace="custom" customColorSpace="displayP3"/>
                                             <constraints>
                                                 <constraint firstItem="lPm-hs-plm" firstAttribute="leading" secondItem="oNu-da-wVh" secondAttribute="trailing" constant="8" id="ENJ-H2-7HM"/>
                                                 <constraint firstItem="Mim-U7-pFL" firstAttribute="leading" secondItem="qfA-ys-fGZ" secondAttribute="leading" constant="8" id="Egv-Mc-ZlJ"/>
@@ -225,7 +226,7 @@
                                 </subviews>
                             </stackView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="iAU-e2-bT1">
-                                <rect key="frame" x="8" y="258" width="398" height="323"/>
+                                <rect key="frame" x="8" y="258" width="398" height="584"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </mapView>
                         </subviews>
