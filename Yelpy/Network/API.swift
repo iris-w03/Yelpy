@@ -2,8 +2,8 @@
 //  File.swift
 //  Yelpy
 //
-//  Created by Memo on 3/1/21.
-//  Copyright © 2020 memo. All rights reserved.
+//  Created by Ziyue Wang on 3/1/22.
+//  Copyright © 2022 Ziyue. All rights reserved.
 //
 
 import Foundation
@@ -13,6 +13,7 @@ import CoreLocation
 class API {
     static let apikey = "gjSp5LrrEi9tJFLQALnw-RdZSRy-TLiJsfPM09LzFMNpMnmSHQZ2n2R_f3ptONYEalxMIudE9avxn_bQvvDZJc1zpPdfPDOvdh08RlT8vZGbqFx3dbtkuliMwATHXnYx"
     static let baseURLString = "https://api.yelp.com/v3/transactions/delivery/search"
+    static let baseURLStringM = "https://api.yelp.com/v3/businesses/search"
     
     var session: URLSession
     
@@ -20,18 +21,10 @@ class API {
         session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
     }
     
-    func MapgetRestaurants(latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping ([Restaurant]?, Error?) -> Void) {
-        let parameter = "latitude=\(latitude)&longitude=\(longitude)"
-        let url = URL(string: API.baseURLString + "?" + parameter)!
-        
-        
-        // Coordinates for San Francisco
-        //let lat = 37.773972
-        //let long = -122.431297
-        
-        
+    func MapgetRestaurants(latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping ([MapRestaurant]?, Error?) -> Void) {
+        let parameter = "term=Restaurant&location=\(latitude),\(longitude)&limit=50"
+        let url = URL(string: API.baseURLStringM + "?" + parameter)!
         var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
-        
         request.setValue("Bearer \(API.apikey)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         
@@ -41,7 +34,7 @@ class API {
     
                 let restaurants = dataDictionary["businesses"] as! [[String: Any]]
                 
-                completion(nil, error)
+                completion(MapRestaurant.restaurant(restaurantsDict: restaurants), nil)
             } else {
                 completion(nil, error)
             }
@@ -53,6 +46,11 @@ class API {
     func getRestaurants(lat: CLLocationDegrees, long:CLLocationDegrees, completion: @escaping ([Restaurant]?) -> Void) {
         let parameter = "latitude=\(lat)&longitude=\(long)"
         let url = URL(string: API.baseURLString + "?" + parameter)!
+        
+        
+        // Coordinates for San Francisco
+        //let lat = 37.773972
+        //let long = -122.431297
         var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         
         request.setValue("Bearer \(API.apikey)", forHTTPHeaderField: "Authorization")

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		700B48D8281520180037133C /* MapRestaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700B48D7281520180037133C /* MapRestaurant.swift */; };
 		7036113F27CFDFFC00C6C9EB /* Singletons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7036113E27CFDFFB00C6C9EB /* Singletons.swift */; };
 		70B21A6D2487796D00E1BAB5 /* 4762-food-carousel.json in Resources */ = {isa = PBXBuildFile; fileRef = 70B21A6C2487796D00E1BAB5 /* 4762-food-carousel.json */; };
 		70C07B0227CF1A8F005FBD27 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C07B0127CF1A8F005FBD27 /* MapViewController.swift */; };
@@ -36,6 +37,7 @@
 		4ED4C73FD51FDFC62216E5DE /* Pods-Yelpy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yelpy.debug.xcconfig"; path = "Target Support Files/Pods-Yelpy/Pods-Yelpy.debug.xcconfig"; sourceTree = "<group>"; };
 		4F45387EF0BCD4FD0EAD369F /* Pods_Yelpy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Yelpy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		65F962A73D0A55B6E930DC45 /* Pods-Yelpy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yelpy.release.xcconfig"; path = "Target Support Files/Pods-Yelpy/Pods-Yelpy.release.xcconfig"; sourceTree = "<group>"; };
+		700B48D7281520180037133C /* MapRestaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRestaurant.swift; sourceTree = "<group>"; };
 		7036113E27CFDFFB00C6C9EB /* Singletons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singletons.swift; sourceTree = "<group>"; };
 		70B21A6C2487796D00E1BAB5 /* 4762-food-carousel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "4762-food-carousel.json"; sourceTree = "<group>"; };
 		70C07B0127CF1A8F005FBD27 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 		BB364E8524AD999A003EA679 /* MainFeed */ = {
 			isa = PBXGroup;
 			children = (
+				70C07B0127CF1A8F005FBD27 /* MapViewController.swift */,
 				BBEBF10F247738A50044AFE0 /* RestaurantsViewController.swift */,
 				BB30BD2A247E46FE00C383BB /* RestaurantDetailViewController.swift */,
 				CE517AC624B6F65200268657 /* PostImageViewController.swift */,
@@ -134,7 +137,6 @@
 			children = (
 				BB364E8624AD99A9003EA679 /* Chat */,
 				BB364E8524AD999A003EA679 /* MainFeed */,
-				70C07B0127CF1A8F005FBD27 /* MapViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -152,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				BB47B3B1247742F70029FFF6 /* Restaurant.swift */,
+				700B48D7281520180037133C /* MapRestaurant.swift */,
 				70D48B2C2814EE120029A177 /* Reviewers.swift */,
 				7036113E27CFDFFB00C6C9EB /* Singletons.swift */,
 			);
@@ -332,6 +335,7 @@
 				BBEBF110247738A50044AFE0 /* RestaurantsViewController.swift in Sources */,
 				BB47B3AA247739640029FFF6 /* API.swift in Sources */,
 				BBEBF10C247738A50044AFE0 /* AppDelegate.swift in Sources */,
+				700B48D8281520180037133C /* MapRestaurant.swift in Sources */,
 				BBEBF10E247738A50044AFE0 /* SceneDelegate.swift in Sources */,
 				BB364E7A24AD5F64003EA679 /* LoginViewController.swift in Sources */,
 				CE517AC724B6F65200268657 /* PostImageViewController.swift in Sources */,
