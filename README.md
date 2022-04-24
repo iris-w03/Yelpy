@@ -13,6 +13,8 @@ Imitate Yelp that allows users to view restaurants nearby. When you rotate the o
 - [x] User will see an animation when loading the data or pull to refresh the page.
 - [x] Allow the user to take a photo, tag it with a location, and then see a map with all the previously tagged photos.
 
+<img src='https://github.com/iris-w03/Yelpy/blob/main/Images/Homepage.gif' title='HomePage Walkthrough' width='' alt='Video Walkthrough' />
+
 ## Map Page
 ### Haven't finished yet
 - [ ] User can see the locations of all restaurants nearby on the same page.
@@ -25,4 +27,4 @@ Imitate Yelp that allows users to view restaurants nearby. When you rotate the o
 - [x] On app launch, if current user is found in cache, user is taken directly to Chat Screen.
 - [x] User can logout.
 
-  
+<img src='https://github.com/iris-w03/Yelpy/blob/main/Images/chat.gif' title='Chat Page Walkthrough' width='' alt='Video Walkthrough' />
