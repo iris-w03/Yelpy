@@ -2,7 +2,7 @@
 //  PostImageViewController.swift
 //  Yelpy
 //
-//  Created by German Flores on 7/8/20.
+//  Created by Memo on 7/8/20.
 //  Copyright © 2020 memo. All rights reserved.
 //
 

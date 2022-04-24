@@ -19,6 +19,7 @@ class RestaurantCell: UITableViewCell {
     @IBOutlet weak var reviewsLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var phoneLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
     
     // ––––– Lab 2 TODO: Add Movie Variable + didset
     var r: Restaurant! {
@@ -28,6 +29,8 @@ class RestaurantCell: UITableViewCell {
             categoryLabel.text = r.mainCategory
             phoneLabel.text = r.phone
             reviewsLabel.text = String(r.reviews) + " reviews"
+            priceLabel.text = r.price
+               
             
             // set images
             starsImage.image = Stars.dict[r.rating]!

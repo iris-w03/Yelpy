@@ -11,6 +11,8 @@ target 'Yelpy' do
   pod 'lottie-ios'
   pod 'SkeletonView'
   pod 'Parse'
+  pod 'MBProgressHUD'
+
 
 
 end

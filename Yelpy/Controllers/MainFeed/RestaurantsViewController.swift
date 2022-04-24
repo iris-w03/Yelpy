@@ -10,8 +10,9 @@ import UIKit
 import AlamofireImage
 import Lottie
 import SkeletonView
+import CoreLocation
 
-class RestaurantsViewController: UIViewController {
+class RestaurantsViewController: UIViewController,CLLocationManagerDelegate {
         
     // Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -19,6 +20,12 @@ class RestaurantsViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     var filteredRestaurants: [Restaurant] = []
+    
+    
+    let locationManager = CLLocationManager()
+    
+    //var latitude = 37.773972
+    //var longitude = -122.431297
     
     // Variable inits
     var animationView: AnimationView?
@@ -38,6 +45,10 @@ class RestaurantsViewController: UIViewController {
         
         // Search Bar delegate
         searchBar.delegate = self
+        
+        searchBar.backgroundImage = UIImage()
+        
+        locationManager.delegate = self
     
     
         // Get Data from API
@@ -48,9 +59,11 @@ class RestaurantsViewController: UIViewController {
     }
     
     
+    
     @objc func getAPIData() {
-       
-        API.getRestaurants() { (restaurants) in
+        let curLocation = getCurrentLocation(locationManager: locationManager)
+        
+        API().getRestaurants(lat: curLocation.lat,long: curLocation.long) { (restaurants) in
             guard let restaurants = restaurants else {
                 return
             }
@@ -71,7 +84,43 @@ class RestaurantsViewController: UIViewController {
         }
     }
     
+    //Uses CLLocationManager to ask the user for their location
+    //If they decline, return hardcoded san francisco coordinates
+    func getCurrentLocation(locationManager: CLLocationManager)-> ( lat: Double, long:Double) {
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        locationManager.pausesLocationUpdatesAutomatically = false
+        
+        switch CLLocationManager.authorizationStatus() {
+        case .authorizedWhenInUse:
+            if let currentLocation = locationManager.location {
+                print("successfully received current location")
+                return (currentLocation.coordinate.latitude, currentLocation.coordinate.longitude)
+            }
+        case .denied:
+            print("user denied location services. Attempting reprompt")
+            locationManager.requestWhenInUseAuthorization()
+            break
+        case .notDetermined:
+            print("user location services not determined. Attempting reprompt")
+            locationManager.requestWhenInUseAuthorization()
+            break
+        default:
+            break
+        }
+        
+        // fail to get current location or denied location tracking -> return coordinates for San Francisco
+        return (Double(37.773972), Double(-122.431297))
+    }
     
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+            case .notDetermined:
+                break
+            default:
+                getAPIData()
+        }
+    }
 
 }
 

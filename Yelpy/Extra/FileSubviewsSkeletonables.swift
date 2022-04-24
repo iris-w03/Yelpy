@@ -2,7 +2,7 @@
 //  FileSubviewsSkeletonables.swift
 //  Yelpy
 //
-//  Created by Mark Falcone on 6/4/20.
+//  Created by Memo on 6/4/20.
 //  Copyright © 2020 memo. All rights reserved.
 //
 
