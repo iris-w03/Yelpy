@@ -13,7 +13,7 @@ Imitate Yelp that allows users to view restaurants nearby. When you rotate the o
 - [x] User will see an animation when loading the data or pull to refresh the page.
 - [x] Allow the user to take a photo, tag it with a location, and then see a map with all the previously tagged photos.
 
-<img src='https://github.com/iris-w03/Yelpy/blob/main/Images/Homepage.gif' title='HomePage Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/iris-w03/Yelpy/blob/main/Images/Homepage.gif' title='HomePage Walkthrough' width='' alt='Video Walkthrough' /><img src='https://github.com/iris-w03/Yelpy/blob/main/Images/Homepage-search.gif' title='HomePage-Search Walkthrough' width='' alt='Video Walkthrough' />
 
 ## Map Page
 ### Haven't finished yet
